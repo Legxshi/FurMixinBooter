@@ -20,6 +20,11 @@ java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(8))
 }
 
+tasks.wrapper {
+    distributionType = Wrapper.DistributionType.BIN
+    gradleVersion = "8.14.3"
+}
+
 loom {
     log4jConfigs.from(file("log4j2.xml"))
 
