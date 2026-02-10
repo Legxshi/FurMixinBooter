@@ -5,7 +5,6 @@ import net.minecraftforge.fml.common.DummyModContainer;
 import net.minecraftforge.fml.common.LoadController;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.versioning.ArtifactVersion;
-import org.spongepowered.asm.mixin.transformer.ClassInfo;
 
 import java.util.Collections;
 import java.util.Set;
@@ -21,7 +20,7 @@ public class MixinBooterModContainer extends DummyModContainer {
         meta.description = "A mod that provides the Sponge Mixin library, a standard API for mods to load mixins targeting Minecraft and other mods, and associated useful utilities on 1.8.";
         meta.credits = "Thanks to CleanroomMC + LegacyModdingMC + Fabric for providing the initial mixin fork.";
         meta.version = "10.7+1";
-        meta.logoFile = "/icon.png";
+        meta.logoFile = "/assets/icon.png";
         meta.authorList.add("Legxshi");
         meta.authorList.add("Rongmario");
     }
