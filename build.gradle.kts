@@ -116,7 +116,7 @@ tasks.withType(org.gradle.jvm.tasks.Jar::class) {
     archiveBaseName.set(mod_id)
     manifest.attributes.run {
         this["FMLCorePluginContainsFMLMod"] = true
-        this["ForceLoadAsMod"] = true
+        //this["ForceLoadAsMod"] = true
         this["FMLCorePlugin"] = "zone.rong.mixinbooter.MixinBooterPlugin"
 
         this["TweakClass"] = "org.spongepowered.asm.launch.MixinTweaker"
