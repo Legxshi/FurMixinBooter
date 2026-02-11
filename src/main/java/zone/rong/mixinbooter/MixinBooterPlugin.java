@@ -29,7 +29,7 @@ import java.util.function.Supplier;
 @IFMLLoadingPlugin.SortingIndex(Integer.MIN_VALUE + 1)
 public final class MixinBooterPlugin implements IFMLLoadingPlugin {
 
-    public static final GlobalProperties.Keys CLEANROOM_DISABLE_MIXIN_CONFIGS = GlobalProperties.Keys.of("mixin.cleanroom.disablemixinconfigs");
+    public static GlobalProperties.Keys CLEANROOM_DISABLE_MIXIN_CONFIGS;
 
     public static final Logger LOGGER = LogManager.getLogger("FurMixinBooter");
 
@@ -38,6 +38,14 @@ public final class MixinBooterPlugin implements IFMLLoadingPlugin {
     private static final Set<String> unmodifiablePresentMods = Collections.unmodifiableSet(presentMods);
 
     private static Field modApiManager$dataTable;
+
+    public static GlobalProperties.Keys getCleanroomDisableMixinConfigs() {
+        if (CLEANROOM_DISABLE_MIXIN_CONFIGS == null) {
+            CLEANROOM_DISABLE_MIXIN_CONFIGS = GlobalProperties.Keys.of("mixin.cleanroom.disablemixinconfigs");
+        }
+
+        return CLEANROOM_DISABLE_MIXIN_CONFIGS;
+    }
 
     static String getMinecraftVersion() {
         return (String) FMLInjectionData.data()[4];
@@ -65,8 +73,6 @@ public final class MixinBooterPlugin implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> data) {
-        Context.deobfuscatedEnvironment = (boolean) data.get("runtimeDeobfuscationEnabled");
-
         Object coremodList = data.get("coremodList");
         if (coremodList instanceof List) {
             Collection<IEarlyMixinLoader> earlyLoaders = this.gatherEarlyLoaders((List) coremodList);
@@ -87,7 +93,7 @@ public final class MixinBooterPlugin implements IFMLLoadingPlugin {
     }
 
     private void initialize() {
-        GlobalProperties.put(CLEANROOM_DISABLE_MIXIN_CONFIGS, new HashSet<>());
+        GlobalProperties.put(getCleanroomDisableMixinConfigs(), new HashSet<>());
 
         LOGGER.info("Initializing Mixins...");
         MixinBootstrap.init();
@@ -198,7 +204,7 @@ public final class MixinBooterPlugin implements IFMLLoadingPlugin {
     private Collection<IEarlyMixinLoader> gatherEarlyLoaders(List coremodList) {
         Field fmlPluginWrapper$coreModInstance = null;
         Set<IEarlyMixinLoader> queuedLoaders = new LinkedHashSet<>();
-        Collection<String> disabledConfigs = GlobalProperties.get(CLEANROOM_DISABLE_MIXIN_CONFIGS);
+        Collection<String> disabledConfigs = GlobalProperties.get(getCleanroomDisableMixinConfigs());
         Context context = new Context(null, unmodifiablePresentMods); // For hijackers
         for (Object coremod : coremodList) {
             try {

@@ -1,5 +1,6 @@
 package zone.rong.mixinbooter;
 
+import net.minecraftforge.classloading.FMLForgePlugin;
 import java.util.Collection;
 
 /**
@@ -8,8 +9,6 @@ import java.util.Collection;
  * @since 10.0
  */
 public final class Context {
-
-    public static boolean deobfuscatedEnvironment;
 
     public enum ModLoader {
 
@@ -39,7 +38,7 @@ public final class Context {
      * @return if the current environment is in-dev
      */
     public boolean inDev() {
-        return deobfuscatedEnvironment;
+        return FMLForgePlugin.RUNTIME_DEOBF;
     }
 
     /**
