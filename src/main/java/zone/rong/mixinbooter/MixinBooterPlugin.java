@@ -6,6 +6,7 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.discovery.ModCandidate;
+import net.minecraftforge.fml.relauncher.CoreModManager;
 import net.minecraftforge.fml.relauncher.FMLInjectionData;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.apache.logging.log4j.LogManager;
@@ -94,6 +95,15 @@ public final class MixinBooterPlugin implements IFMLLoadingPlugin {
 
     private void initialize() {
         GlobalProperties.put(getCleanroomDisableMixinConfigs(), new HashSet<>());
+
+        try {
+            Field quickDeobf = CoreModManager.class.getDeclaredField("deobfuscatedEnvironment");
+            quickDeobf.setAccessible(true);
+
+            if ((boolean) quickDeobf.get(null)) {
+                GlobalProperties.put("FURMIXINBOOTER_DEV_ENVIRONMENT", new Object());
+            }
+        } catch (Exception ignored) {}
 
         LOGGER.info("Initializing Mixins...");
         MixinBootstrap.init();
