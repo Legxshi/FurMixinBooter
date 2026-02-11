@@ -98,8 +98,8 @@ dependencies {
     annotationProcessor("com.google.guava:guava:17.0")
     annotationProcessor("org.ow2.asm:asm-debug-all:5.2")
 
-    shadowImpl("com.github.Legxshi:FurMixin:c2911246c3") { isTransitive = false }
-    annotationProcessor("com.github.Legxshi:FurMixin:c2911246c3")
+    shadowImpl("com.github.Legxshi:FurMixin:2efc3aa627") { isTransitive = false }
+    annotationProcessor("com.github.Legxshi:FurMixin:2efc3aa627")
 
     shadowImpl("io.github.llamalad7:mixinextras-common:0.5.3") { isTransitive = false }
     annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.3")
