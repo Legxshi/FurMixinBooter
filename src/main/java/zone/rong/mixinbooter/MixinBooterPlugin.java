@@ -102,7 +102,13 @@ public final class MixinBooterPlugin implements IFMLLoadingPlugin {
 
             if ((boolean) quickDeobf.get(null)) {
                 GlobalProperties.put("FURMIXINBOOTER_DEV_ENVIRONMENT", new Object());
+
+                List<String> tweakClasses = (List<String>) Launch.blackboard.get("TweakClasses");
+                if (tweakClasses != null && !tweakClasses.contains("org.spongepowered.asm.launch.MixinTweaker")) {
+                    tweakClasses.add("org.spongepowered.asm.launch.MixinTweaker");
+                }
             }
+
         } catch (Exception ignored) {}
 
         LOGGER.info("Initializing Mixins...");

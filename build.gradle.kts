@@ -105,7 +105,7 @@ dependencies {
     annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.3")
 
     // If you don't want to log in with your real minecraft account, remove this line
-    //runtimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.2.1")
+    //runtimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.2.2")
 }
 
 tasks.withType(JavaCompile::class) {
